@@ -27,7 +27,6 @@ class FireboltQuery(Task):
         query: str = None,
         **kwargs
     ):
-
         self.database = database
         self.username = username
         self.password = password
@@ -73,6 +72,7 @@ class FireboltQuery(Task):
         if not query:
             raise ValueError("A query string must be provided")
 
+        # build the connection parameter dictionary
         conn_config = {
             "database": database,
             "username": username,
@@ -84,6 +84,7 @@ class FireboltQuery(Task):
         conn = firebolt_conn.connect(**conn_config)
         result = []
 
+        # execute query
         with conn:
             with conn.cursor() as cursor:
                 execute = cursor.execute(query)
